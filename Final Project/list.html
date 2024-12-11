@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction List - Expense Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Expense Tracker</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="form.html">Transaction Form</a></li>
+        <li><a href="list.html">Transaction List</a></li>
+        <li><a href="reports.html">Reports & Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="form.html">Transaction Form</a></li>
+    <li><a href="list.html">Transaction List</a></li>
+    <li><a href="reports.html">Reports & Insights</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h4>Transaction List</h4>
+    <table class="highlight responsive-table">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="transaction-list">
+        <!-- Transactions will be dynamically loaded here -->
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="page-footer" style="background-color: #1e88e5;">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About</h5>
+          <p class="grey-text text-lighten-4">This app helps you track your income and expenses easily.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        &copy; 2024 Expense Tracker
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+
+      const transactionList = document.getElementById('transaction-list');
+
+      // Load transactions from localStorage
+      const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+      function updateTransactionList() {
+        transactionList.innerHTML = '';
+        transactions.forEach((transaction, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${transaction.amount}</td>
+            <td>${transaction.category}</td>
+            <td>${new Date(transaction.date).toLocaleDateString()}</td>
+            <td>
+              <button class="btn-small red lighten-1" onclick="removeTransaction(${index})">Remove</button>
+            </td>
+          `;
+          transactionList.appendChild(row);
+        });
+      }
+
+      // Remove transaction function
+      window.removeTransaction = function (index) {
+        const confirmation = confirm('Are you sure you want to remove this transaction?');
+        if (confirmation) {
+          transactions.splice(index, 1);
+          localStorage.setItem('transactions', JSON.stringify(transactions));
+          updateTransactionList();
+          M.toast({ html: 'Transaction removed successfully!' });
+        }
+      };
+
+      // Initialize the list
+      updateTransactionList();
+    });
+  </script>
+</body>
+</html>

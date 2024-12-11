@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home - Expense Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <style>
+    .card-horizontal {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .card-horizontal .card-image {
+      flex: 1;
+      text-align: center;
+    }
+    .card-horizontal .card-content {
+      flex: 2;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Expense Tracker</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="form.html">Transaction Form</a></li>
+        <li><a href="list.html">Transaction List</a></li>
+        <li><a href="reports.html">Reports & Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="form.html">Transaction Form</a></li>
+    <li><a href="list.html">Transaction List</a></li>
+    <li><a href="reports.html">Reports & Insights</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h4>Welcome to Expense Tracker</h4>
+    <p>Manage your expenses efficiently with our tools.</p>
+    <div class="card horizontal card-horizontal">
+      <div class="card-image">
+        <img src="images/Add Transaction.PNG" alt="Add Transaction">
+      </div>
+      <div class="card-content">
+        <h5>Add Transaction</h5>
+        <p>Quickly add new income or expense entries to keep your finances up to date.</p>
+        <a href="form.html" class="btn waves-effect waves-light" style="background-color: #1e88e5;">Go to Add Transaction</a>
+      </div>
+    </div>
+
+    <div class="card horizontal card-horizontal">
+      <div class="card-image">
+        <img src="images/Transaction List.PNG" alt="Transaction List">
+      </div>
+      <div class="card-content">
+        <h5>View Transactions</h5>
+        <p>Review all your past transactions in a well-organized list.</p>
+        <a href="list.html" class="btn waves-effect waves-light" style="background-color: #1e88e5;">Go to Transaction List</a>
+      </div>
+    </div>
+
+    <div class="card horizontal card-horizontal">
+      <div class="card-image">
+        <img src="images/Insights.PNG" alt="Insights">
+      </div>
+      <div class="card-content">
+        <h5>Reports & Insights</h5>
+        <p>Analyze your spending and income trends with interactive reports.</p>
+        <a href="reports.html" class="btn waves-effect waves-light" style="background-color: #1e88e5;">Go to Reports</a>
+      </div>
+    </div>
+
+    <div class="card horizontal card-horizontal">
+      <div class="card-image">
+        <img src="images/Contact.PNG" alt="Contact">
+      </div>
+      <div class="card-content">
+        <h5>Contact Us</h5>
+        <p>Need assistance? Reach out to us with any questions or concerns.</p>
+        <a href="contact.html" class="btn waves-effect waves-light" style="background-color: #1e88e5;">Go to Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer" style="background-color: #1e88e5;">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About</h5>
+          <p class="grey-text text-lighten-4">This app helps you track your income and expenses easily.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        &copy; 2024 Expense Tracker
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+    });
+  </script>
+</body>
+</html>

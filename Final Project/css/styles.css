@@ -1,0 +1,144 @@
+/* General Reset */
+html, body {
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .container {
+    flex: 1;
+  }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar */
+  .nav-wrapper {
+    background-color: #1976d2; /* Primary blue */
+  }
+  
+  .nav-wrapper .brand-logo {
+    font-size: 1.8rem;
+  }
+  
+  .nav-wrapper ul li a {
+    color: #ffffff; /* White links */
+    font-weight: bold;
+  }
+  
+  /* Sidenav */
+  .sidenav {
+    background-color: #f5f5f5; /* Light gray background */
+  }
+  
+  .sidenav li a {
+    color: #1976d2; /* Blue links */
+    font-weight: bold;
+  }
+  
+  /* Main Content */
+  .container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  h4 {
+    font-size: 2rem;
+    color: #333333; /* Dark gray */
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #666666; /* Medium gray */
+  }
+  
+  /* Forms */
+  .input-field label {
+    color: #1976d2; /* Blue label text */
+  }
+  
+  .input-field input:focus + label,
+  .input-field textarea:focus + label {
+    color: #1976d2 !important; /* Focused label text */
+  }
+  
+  .input-field input:focus,
+  .input-field textarea:focus {
+    border-bottom: 2px solid #1976d2 !important; /* Blue underline */
+    box-shadow: none !important;
+  }
+  
+  /* Buttons */
+  .btn {
+    background-color: #1976d2; /* Primary blue */
+  }
+  
+  .btn:hover {
+    background-color: #004ba0; /* Darker blue */
+  }
+  
+  /* Tables */
+  table {
+    margin-top: 1.5rem;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #ffffff;
+  }
+  
+  table th,
+  table td {
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f0f0f0; /* Light gray header */
+    color: #333333; /* Dark gray text */
+    font-weight: bold;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background */
+  }
+  
+  table tr:hover {
+    background-color: #e3f2fd; /* Light blue hover */
+  }
+  
+  /* Footer */
+  .page-footer {
+    background-color: #1976d2;
+    color: #ffffff;
+    padding: 1rem 0;
+  }
+  
+  .page-footer .container h5 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .page-footer .container p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .footer-copyright {
+    background-color: #004ba0; /* Dark blue */
+    color: #ffffff;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  

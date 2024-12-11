@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact - Expense Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+    });
+  </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Expense Tracker</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="form.html">Transaction Form</a></li>
+            <li><a href="list.html">Transaction List</a></li>
+            <li><a href="reports.html">Reports & Insights</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="form.html">Transaction Form</a></li>
+        <li><a href="list.html">Transaction List</a></li>
+        <li><a href="reports.html">Reports & Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+  <div class="container">
+    <h4>Contact Us</h4>
+    <form id="contact-form">
+      <div class="input-field">
+        <input id="name" type="text" required>
+        <label for="name">Name</label>
+      </div>
+      <div class="input-field">
+        <input id="email" type="email" required>
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field">
+        <textarea id="message" class="materialize-textarea" required></textarea>
+        <label for="message">Message</label>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+
+  <footer class="page-footer" style="background-color: #1e88e5;">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About</h5>
+          <p class="grey-text text-lighten-4">This app helps you track your income and expenses easily.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        &copy; 2024 Expense Tracker
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

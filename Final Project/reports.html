@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reports & Insights - Expense Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Expense Tracker</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="form.html">Transaction Form</a></li>
+        <li><a href="list.html">Transaction List</a></li>
+        <li><a href="reports.html">Reports & Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="form.html">Transaction Form</a></li>
+    <li><a href="list.html">Transaction List</a></li>
+    <li><a href="reports.html">Reports & Insights</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div class="container">
+    <h4>Reports & Insights</h4>
+    <canvas id="expenseChart" width="400" height="400"></canvas>
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" id="startDate" class="datepicker">
+        <label for="startDate">Start Date</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" id="endDate" class="datepicker" disabled>
+        <label for="endDate">End Date</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" id="generateReport">Generate Report</button>
+  </div>
+
+  <footer class="page-footer" style="background-color: #1e88e5;">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About</h5>
+          <p class="grey-text text-lighten-4">This app helps you track your income and expenses easily.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        &copy; 2024 Expense Tracker
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+      const startDateElem = document.getElementById('startDate');
+      const endDateElem = document.getElementById('endDate');
+
+      const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+      let chartInstance = null;
+
+      function generateColors(count) {
+        const colors = [];
+        for (let i = 0; i < count; i++) {
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+          colors.push(`rgba(${r}, ${g}, ${b}, 0.2)`);
+        }
+        return colors;
+      }
+
+      function generateChart(startDate, endDate) {
+        const filteredTransactions = transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.date);
+          return transactionDate >= startDate && transactionDate <= endDate;
+        });
+
+        const categoryTotals = filteredTransactions.reduce((totals, transaction) => {
+          if (!totals[transaction.category]) {
+            totals[transaction.category] = 0;
+          }
+          totals[transaction.category] += parseFloat(transaction.amount);
+          return totals;
+        }, {});
+
+        const labels = Object.keys(categoryTotals);
+        const data = Object.values(categoryTotals);
+        const backgroundColors = generateColors(labels.length);
+
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        chartInstance = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Expenses by Category',
+              data: data,
+              backgroundColor: backgroundColors,
+              borderColor: backgroundColors.map(color => color.replace(/0\.2\)$/, '1)')),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+            }
+          }
+        });
+      }
+
+      startDateElem.addEventListener('change', function () {
+        const startDate = new Date(startDateElem.value);
+        if (isNaN(startDate)) {
+          endDateElem.disabled = true;
+          M.toast({ html: 'Please select a valid start date.', classes: 'red' });
+        } else {
+          endDateElem.disabled = false;
+          M.Datepicker.init(endDateElem, {
+            format: 'yyyy-mm-dd',
+            autoClose: true,
+            minDate: startDate
+          });
+        }
+      });
+
+      document.getElementById('generateReport').addEventListener('click', function() {
+        const startDate = new Date(startDateElem.value);
+        const endDate = new Date(endDateElem.value);
+
+        if (!startDate || !endDate || isNaN(startDate) || isNaN(endDate) || endDate < startDate) {
+          M.toast({ html: 'Please select valid start and end dates.', classes: 'red' });
+          return;
+        }
+
+        generateChart(startDate, endDate);
+      });
+
+      // Default report for the last month
+      const today = new Date();
+      const lastMonth = new Date(today);
+      lastMonth.setMonth(today.getMonth() - 1);
+
+      M.Datepicker.init(startDateElem, {
+        format: 'yyyy-mm-dd',
+        autoClose: true,
+        minDate: null,
+        defaultDate: lastMonth,
+        setDefaultDate: false,
+        onSelect: function() {
+          endDateElem.disabled = false;
+          M.Datepicker.init(endDateElem, {
+            format: 'yyyy-mm-dd',
+            autoClose: true,
+            minDate: new Date(startDateElem.value),
+            defaultDate: today,
+            setDefaultDate: false
+          });
+        }
+      });
+
+      M.Datepicker.init(endDateElem, {
+        format: 'yyyy-mm-dd',
+        autoClose: true,
+        defaultDate: today,
+        setDefaultDate: false
+      });
+
+      generateChart(lastMonth, today);
+    });
+  </script>
+</body>
+</html>
